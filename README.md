@@ -2,7 +2,8 @@
 
 Alexa.m4a is an audio file that contains Alexa command with my terrible voice.
 
-Running Dolphin.m is enough to reproduce Dolphin attack.
+Running Dolphin.m is a function which I call inside RunDolphin.m.
+Input parameters are explained inside script.
 
 Papers:
 
