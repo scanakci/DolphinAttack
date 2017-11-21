@@ -15,10 +15,15 @@ import android.view.View;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
 
+import java.io.File;
+import java.lang.Object;
+
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.DataInputStream;
+import java.io.OutputStream;
 import java.net.SocketException;
 import java.util.Locale;
 import java.util.ArrayList;
@@ -43,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG_AUDIO = "AudioRecordTest";
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static String mFileName = null;
+    private static String command = null;
     private static Uri audioUri = null;
     //private RecordButton mRecordButton = null;
     private MediaRecorder mRecorder = null;
@@ -72,6 +78,52 @@ public class MainActivity extends AppCompatActivity {
         System.loadLibrary("native-lib");
     }
 
+    public void saveAttack(boolean attack) {
+        String atk;
+        if (attack) atk="attack_";
+        else atk = "not_attack_";
+        System.out.println("getFilesDir(): " + getFilesDir());
+        if (audioUri!= null) {
+                    /*Save sample in attack folder*/
+            System.out.println(audioUri.getPath());
+            try {
+                InputStream input = getContentResolver().openInputStream(audioUri);
+                try {
+                    File file = new File(mFileName, atk+command+".amr");
+                    OutputStream output = new FileOutputStream(file);
+                    try {
+                        byte[] buffer = new byte[4 * 1024]; // or other buffer size
+                        int read;
+
+                        try {
+                            while ((read = input.read(buffer)) != -1) {
+                                output.write(buffer, 0, read);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            output.flush();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } finally {
+                        try {
+                            output.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } finally {
+                    input.close();
+                }
+                System.out.println("Saved adio in: "+mFileName+"cacheFileAppeal.amr");
+            } catch ( IOException a) {
+                Log.e(LOG_TAG_AUDIO, "audioURI not found");
+            }
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,18 +145,34 @@ public class MainActivity extends AppCompatActivity {
         btnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(LOG_SPEECH, "SpeechReco Started..");
                 promptSpeechInput();
-                Log.i(LOG_SPEECH, "SpeechReco Done..");
+                Log.i(LOG_SPEECH, "PromptSpeech Done..");
             }
         });
+
+        /*Save audio sample into respective folder*/
+        at_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*Save audio as attack sample*/
+                saveAttack(true);
+            }
+        });
+        not_at_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*Save audio as not_attack sample*/
+                saveAttack(false);
+            }
+        });
+
 
         // hide the action bar
         //getActionBar().hide();
 
         /*Initialize audio recording stuff*/
         mFileName = getExternalCacheDir().getAbsolutePath();
-        mFileName += "/audiorecordtest.3gp";
+        //mFileName += "/audiorecordtest.3gp";
         mPlayButton = (ImageButton) findViewById(R.id.play_btn);
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
 
@@ -113,12 +181,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 System.out.println("OnPlay starting..");
                 onPlay(mStartPlaying);
-                /*if (mStartPlaying) {
-                    setText("Stop playing");
-                } else {
-                    setText("Start playing");
-                }*/
-                System.out.println("OnPlay stopped");
+                //System.out.println("OnPlay stopped");
                 mStartPlaying = !mStartPlaying;
             }
         });
@@ -166,6 +229,9 @@ public class MainActivity extends AppCompatActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     txtSpeechInput.setText(result.get(0));
 
+                    /*Set filename to save audio*/
+                    command = result.get(0);
+
                     /*What's in the bundle?*/
                     Bundle bundle = data.getExtras();
                     if (bundle != null) {
@@ -196,20 +262,6 @@ public class MainActivity extends AppCompatActivity {
                     mPlayer.release();
                     System.out.println("Audio source RELEASED!!");
                     mPlayer = null;*/
-
-                    /*ContentResolver contentResolver = getContentResolver();
-                    try {
-                        InputStream filestream = contentResolver.openInputStream(audioUri);
-                        DataInputStream read = new DataInputStream(filestream);
-                        AudioStream as = new AudioStream(filestream);
-                        AudioPlayer.player.start(as);
-                        AudioPlayer.player.stop(as);
-                    } catch (FileNotFoundException a) {
-                        Log.e(LOG_TAG_AUDIO, "No Input Audio Stream :(");
-                    } catch (SocketException s) {
-
-                    }*/
-                    //onPlay(true); //play the sound
                 }
                 break;
             }
@@ -224,12 +276,12 @@ public class MainActivity extends AppCompatActivity {
 
     /*pLAY*/
     private void onPlay(boolean start) {
-        startPlaying();
-        /*if (start) {
+        //startPlaying();
+        if (start) {
             startPlaying();
         } else {
             stopPlaying();
-        }*/
+        }
     }
 
     private void startPlaying() {
@@ -243,8 +295,8 @@ public class MainActivity extends AppCompatActivity {
             Log.e(LOG_TAG_AUDIO, "prepare() failed");
         }
         /*Release the player*/
-        mPlayer.release();
-        mPlayer = null;
+        //mPlayer.release();
+        //mPlayer = null;
     }
 
     private void stopPlaying() {
