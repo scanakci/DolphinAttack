@@ -18,7 +18,7 @@
 
     <Button
         android:id="@+id/not_attack_btn"
-        android:layout_width="114dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginBottom="28dp"
         android:layout_marginStart="28dp"
@@ -28,9 +28,9 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="114"
-        android:layout_height="100"
+        android:id="@+id/attack_btn"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginBottom="28dp"
         android:layout_marginEnd="28dp"
         android:background="@android:color/holo_red_light"
@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/mic"
         android:layout_width="138dp"
         android:layout_height="124dp"
         android:layout_marginBottom="8dp"
@@ -54,15 +54,29 @@
         app:srcCompat="@android:drawable/ic_btn_speak_now" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/command"
         android:layout_width="360dp"
         android:layout_height="103dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:text="Command Spoken"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/play_btn"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/attack_btn"
+        app:layout_constraintStart_toEndOf="@+id/not_attack_btn"
+        app:srcCompat="@android:drawable/ic_media_play" />
 
 </android.support.constraint.ConstraintLayout>
