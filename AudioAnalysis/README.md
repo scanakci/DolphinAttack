@@ -1,13 +1,20 @@
 # Audio Analysis
 
-## Dependencies
-Python 3.5+
-PyAudio
-Matplotlib
+## Recording Samples
 
-## Instruction
-### Recording
+### Dependencies
+Python 3.5+
+
+PyAudio: https://people.csail.mit.edu/hubert/pyaudio/ 
+
+matplotlib
+
+numpy
+
+### Instruction
+'''
 python record.py filename
+'''
 
 filename.wav will be stored in *wav_samples* folder
 
