@@ -1,44 +1,31 @@
-import speech_recognition as sr
+import numpy as np
+import sys
+from scipy.io import wavfile as wav
+from matplotlib import pyplot as plt
 
+WAVE_INPUT_FILENAME = sys.argv[1]
+WAVE_ATTACK = './wav_samples/attack_'+WAVE_INPUT_FILENAME+'.wav'
+WAVE_NORMAL = './wav_samples/normal_'+WAVE_INPUT_FILENAME+'.wav'
+WAVE_NORMAL_COMPUTER = './wav_samples/normal_'+WAVE_INPUT_FILENAME+'_computer.wav'
 
-#mic_name = 
-sample_rate = 48000
-chunk_size = 2048
-
-#Initialize the recognizer
-r = sr.Recognizer()
- 
-#generate a list of all audio cards/microphones
-mic_list = sr.Microphone.list_microphone_names()
- 
-#the following loop aims to set the device ID of the mic that
-#we specifically want to use to avoid ambiguity.
-for i, microphone_name in enumerate(mic_list):
-    print (microphone_name)
- 
-#use the microphone as source for input. Here, we also specify 
-#which device ID to specifically look for incase the microphone 
-#is not working, an error will pop up saying "device_id undefined"
-'''
-with sr.Microphone(device_index = device_id, sample_rate = sample_rate, 
-                        chunk_size = chunk_size) as source:
-    #wait for a second to let the recognizer adjust the 
-    #energy threshold based on the surrounding noise level
-    r.adjust_for_ambient_noise(source)
-    print "Say Something"
-    #listens for the user's input
-    audio = r.listen(source)
-         
-    try:
-        text = r.recognize_google(audio)
-        print "you said: " + text
-     
-    #error occurs when google could not understand what was said
-     
-    except sr.UnknownValueError:
-        print("Google Speech Recognition could not understand audio")
-     
-    except sr.RequestError as e:
-        print("Could not request results from Google 
-                                 Speech Recognition service; {0}".format(e))
-'''
+#samfreq, sound = wav.read(WAVE_INPUT_FILENAME)
+_, sound_attack = wav.read(WAVE_ATTACK)
+##_, sound_normal = wav.read(WAVE_NORMAL)
+##_, sound_normal_computer = wav.read(WAVE_NORMAL_COMPUTER)
+#print ('freq: ', samfreq)
+#print ('sound.shape: ', sound.shape)
+#Change into -1 to 1 range
+#print (sound)
+#sound = sound/(2.**15)
+#print (sound)
+#timeArray = np.arange(0, sound.shape[0], 1.0)
+#timeArray = timeArray / samfreq
+#timeArray = timeArray * 1000 #scale to ms
+#print (timeArray)
+#print (timeArray.shape, sound.shape)
+#_,background = wav.read('attack_sample.wav')
+plt.plot(sound_attack, color='red')
+#plt.plot(sound_normal, color='blue')
+##plt.plot(sound_normal_computer, color='green')
+#plt.ylim(-500,500)
+plt.show()

@@ -17,6 +17,8 @@ import android.speech.RecognizerIntent;
 
 import java.io.File;
 import java.lang.Object;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         String atk;
         if (attack) atk="attack_";
         else atk = "not_attack_";
+        String timeStamp = new SimpleDateFormat("_YYYY-MM-dd_HH:mm:ss_").format(new Date());
         System.out.println("getFilesDir(): " + getFilesDir());
         if (audioUri!= null) {
                     /*Save sample in attack folder*/
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 InputStream input = getContentResolver().openInputStream(audioUri);
                 try {
-                    File file = new File(mFileName, atk+command+".amr");
+                    File file = new File(mFileName, atk+command+"_"+timeStamp+".amr");
                     OutputStream output = new FileOutputStream(file);
                     try {
                         byte[] buffer = new byte[4 * 1024]; // or other buffer size
@@ -118,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 } finally {
                     input.close();
                 }
-                System.out.println("Saved adio in: "+mFileName+"cacheFileAppeal.amr");
+                System.out.println("Saved audio");
             } catch ( IOException a) {
                 Log.e(LOG_TAG_AUDIO, "audioURI not found");
             }
