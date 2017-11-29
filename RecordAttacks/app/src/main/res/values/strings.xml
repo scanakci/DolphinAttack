@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RecordAttacks</string>
+    <string name="speech_prompt">Speak now or forever remain unheard...</string>
+    <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
+</resources>
