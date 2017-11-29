@@ -12,11 +12,17 @@ matplotlib
 numpy
 
 ### Instruction
-'''
-python record.py filename
-'''
+```bash
+python record.py <attack/normal>_<filename.wav>
+```
 
-filename.wav will be stored in *wav_samples* folder
+Example:
+```bash
+python record.py attack_alexa_how_are_you.wav
+python record.py normal_alexa_how_are_you.wav
+```
 
-### Plot wav
-python speechtest.py filename
+Audio sample will be stored in **wav_samples** folder
+
+### Visualization
+<a href=https://github.com/scanakci/DolphinAttack/blob/record/AudioAnalysis/Visualize.ipynb>Visualize.ipynb</a>
