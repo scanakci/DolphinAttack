@@ -1,4 +1,4 @@
-"""PyAudio example: Record a few seconds of audio and save to a WAVE file."""
+"""Program to record a few seconds of audio and save to a WAVE file."""
 
 import pyaudio
 import wave
