@@ -32,7 +32,7 @@ Snormal = Snormal (:,1);
 
 if ( plotMode == 1)
     subplot 211
-    stem(0:300,Snormal(1:301),'filled','markersize',3) % this should be dynamic too!!!!
+    stem(0:tmax*Fs-1,Snormal(1:tmax*Fs),'filled','markersize',3) % this should be dynamic too!!!!
     grid on
     xlabel 'Sample number:48000',ylabel Original
 end
@@ -50,7 +50,6 @@ numMinOrder = firgr('minorder',[0,Fp/(Fs/2),Fst/(Fs/2),1],[1 1 0 0],...
     [Rp Rst]); % useful function to determine numMinOrder
 
 if(plotMode)
-    begin
     fvt = fvtool(numMinOrder,1,'Fs',Fs,'Color','White');
     legend(fvt,'FIR filter. Order = 133')
 end
@@ -71,6 +70,8 @@ if ( plotMode == 1)
     ylabel('Amplitude (V)')
     title('Original Signal')
     
+    figure
+    spectrogram(Snormal,128,120,128,1e5,'yaxis')
     %Filtered
     figure
     plot(t,Sfilter(1:Fs*tmax))
@@ -151,7 +152,7 @@ end
 %fc = carrier frequency;
 %Smodu =n1 * Sup * cos(2*pi*fc);
 %n1  %normalized coefficient, input argument to function
-fc = 28e3;
+fc = 30e3;
 fs = Fs * 4;
 [Smodu,t_modu] = modulate(Sup,fc,fs,'am');
 Smodu = n1 * Smodu;
@@ -190,7 +191,17 @@ if ( plotMode == 1 )
     xlabel('Frequency (Hz)')
     ylabel('Amplitude')
     title('Frequency Response of Sattack')
-end
+    
+    figure 
+    plot(t_modu,Sattack)
+    xlabel('sec')
+    ylabel('Amp')
+    title('Time domain Sattack')
+    
+    figure
+    spectrogram(Sattack,128,120,128,2e5,'yaxis')
+  
+   end
 % filename = 'Alexa.m4a';
 % audiowrite(filename,Snormal,Fs)
 filename = outputFile;
