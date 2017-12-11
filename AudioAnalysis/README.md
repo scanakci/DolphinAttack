@@ -28,4 +28,4 @@ Audio sample will be stored in **wav_samples** folder
 <a href=https://github.com/scanakci/DolphinAttack/blob/record/AudioAnalysis/Visualize.ipynb>Visualize.ipynb</a>
 
 ### Logistic Regresion Model
-<a href=https://github.com/scanakci/DolphinAttack/blob/record/AudioAnalysis/SupervisedLearning.ipynb>SupervisedLearning.ipynb</a>
+<a href=https://github.com/scanakci/DolphinAttack/blob/master/AudioAnalysis/SupervisedLearning.ipynb>SupervisedLearning.ipynb</a>
