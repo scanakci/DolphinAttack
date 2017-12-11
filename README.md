@@ -9,3 +9,7 @@ Papers:
 
 https://arxiv.org/pdf/1708.09537.pdf  
 https://arxiv.org/pdf/1708.07238.pdf
+
+## Logistic Regression Model:
+<a href=https://github.com/scanakci/DolphinAttack/blob/master/AudioAnalysis/SupervisedLearning.ipynb>SupervisedLearning.ipynb</a>
+
