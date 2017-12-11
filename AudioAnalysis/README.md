@@ -5,13 +5,13 @@
 ### Dependencies
 Python 3.5+
 
-PyAudio: https://people.csail.mit.edu/hubert/pyaudio/ 
+Librosa 
 
 matplotlib
 
 numpy
 
-### Instruction
+### Recording
 ```bash
 python record.py <attack/normal>_<filename.wav>
 ```
@@ -26,3 +26,6 @@ Audio sample will be stored in **wav_samples** folder
 
 ### Visualization
 <a href=https://github.com/scanakci/DolphinAttack/blob/record/AudioAnalysis/Visualize.ipynb>Visualize.ipynb</a>
+
+### Logistic Regresion Model
+<a href=https://github.com/scanakci/DolphinAttack/blob/record/AudioAnalysis/SupervisedLearning.ipynb>SupervisedLearning.ipynb</a>
